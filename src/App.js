@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { EstadoReact } from './components/EstadoReact';
+import { Ejercicio } from './components/Ejercicio';
+import { Efectos } from './components/Efectos';
+import { CompAjax } from './components/CompAjax';
 
 function App() {
+
+  const today = new Date();
+  
+  function getYear(){
+    return today.getFullYear();
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <EstadoReact></EstadoReact>
+      <Ejercicio  year={getYear()}></Ejercicio>
+      <Efectos ></Efectos>
+      <CompAjax></CompAjax>
     </div>
   );
 }
