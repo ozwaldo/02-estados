@@ -29,7 +29,7 @@ export const CompAjax = () => {
             const solicitud = await fetch("https://reqres.in/api/users?page=2");
             const {data} = await solicitud.json();
             setListaUsuarios(data);    
-            cargando = false;         
+            setCargando(false);       
         }, 2000)
     }
 
@@ -39,7 +39,11 @@ export const CompAjax = () => {
         getListaUsuariosAjaxASync();
     },[]);
 
-    if()
+    if(cargando === true) {
+        return(
+            <div className='cargando'>Cargando...</div>
+        )
+    } else {
 
   return (
     <div className='componente'>
@@ -52,4 +56,4 @@ export const CompAjax = () => {
 
   )
 }
-
+}
