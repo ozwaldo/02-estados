@@ -3,6 +3,7 @@ import { EstadoReact } from './components/EstadoReact';
 import { Ejercicio } from './components/Ejercicio';
 import { Efectos } from './components/Efectos';
 import { CompAjax } from './components/CompAjax';
+import { CompFormularios } from './components/CompFormularios';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Ejercicio  year={getYear()}></Ejercicio>
       <Efectos ></Efectos>
       <CompAjax></CompAjax>
+      <CompFormularios></CompFormularios>
     </div>
   );
 }

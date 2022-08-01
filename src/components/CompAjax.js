@@ -6,6 +6,7 @@ export const CompAjax = () => {
 
     const [listaUsuarios,setListaUsuarios] = useState([]);
     const [cargando, setCargando] = useState(true);
+    const [error, setError] = useState("");
 
     // const getListaUsuarios = () => {
     //     setListaUsuarios([{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://reqres.in/img/faces/7-image.jpg"},
@@ -26,10 +27,15 @@ export const CompAjax = () => {
 
     const getListaUsuariosAjaxASync = () => {
         setTimeout( async() =>{
-            const solicitud = await fetch("https://reqres.in/api/users?page=2");
-            const {data} = await solicitud.json();
-            setListaUsuarios(data);    
-            setCargando(false);       
+            try {
+                const solicitud = await fetch("https://reqres.in/api/users?page=1");
+                const {data} = await solicitud.json();
+                setListaUsuarios(data);    
+                setCargando(false); 
+            } catch (error) {
+                setError(error.message);
+            }
+                  
         }, 2000)
     }
 
@@ -39,21 +45,21 @@ export const CompAjax = () => {
         getListaUsuariosAjaxASync();
     },[]);
 
-    if(cargando === true) {
+    if(error !== "" ) {
+        return (<div className='componente'><h1 className='error'>{error}</h1></div>);
+    } else if (cargando === true) {
         return(
-            <div className='cargando'>Cargando...</div>
+            <div className='componente'> <div className='cargando'>Cargando...</div></div>
         )
     } else {
-
-  return (
-    <div className='componente'>
-        <h1>Listado Ajax</h1>
-        <div>
-            {listaUsuarios.map((usuario, i) => <figure className='usuarios'><img src={usuario.avatar} alt="foto"/> <figcaption>{usuario.first_name} {usuario.last_name} </figcaption></figure>)}
-        </div>
-        <div className='clearlist'> </div>
-    </div>
-
-  )
-}
+        return (
+            <div className='componente'>
+                <h1>Listado Ajax</h1>
+                <div>
+                    {listaUsuarios.map((usuario, i) => <figure className='usuarios'><img src={usuario.avatar} alt="foto"/> <figcaption>{usuario.first_name} {usuario.last_name} </figcaption></figure>)}
+                </div>
+                <div className='clearlist'> </div>
+            </div>
+        )
+    }
 }
